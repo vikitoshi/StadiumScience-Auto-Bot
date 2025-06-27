@@ -149,7 +149,7 @@ async function branchInstall(proxy) {
   const url = 'https://api2.branch.io/v1/install';
   const { brand, model, osVersion, build, carrier, locale, connection } = generateRandomDeviceData();
   const headers = {
-    'User-Agent': `Dalvik/2.1. deno (Linux; U; Android ${osVersion}; ${model} Build/${build})`,
+    'User-Agent': `Dalvik/2.1.0 (Linux; U; Android ${osVersion}; ${model} Build/${build})`,
     'Connection': 'Keep-Alive',
     'Accept': 'application/json',
     'Accept-Encoding': 'gzip',
@@ -210,7 +210,7 @@ async function branchInstall(proxy) {
     const response = await axios.post(url, data, {
       headers,
       httpAgent: proxy ? new HttpsProxyAgent(proxy) : undefined,
-      httpsAgent: proxy ? new Https |Agent(proxy) : undefined,
+      httpsAgent: proxy ? new HttpsProxyAgent(proxy) : undefined,
     });
     logger.success('Branch.io install successful');
     return response.data;
@@ -247,7 +247,7 @@ async function login(email, password, proxy, firebaseToken) {
       headers,
       httpAgent: proxy ? new HttpsProxyAgent(proxy) : undefined,
       httpsAgent: proxy ? new HttpsProxyAgent(proxy) : undefined,
-      http2: true, 
+      http2: true,
     });
     logger.success(`Login successful for ${email}`);
     return response.data;
@@ -271,7 +271,6 @@ async function fetchJournalQuestions(accessToken, proxy) {
     'accept-profile': 'public',
     'authorization': `Bearer ${accessToken}`,
     'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVndWZuc3BvZnhyaWRmZG93Zm92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDU2ODkzNzIsImV4cCI6MjAyMTI2NTM3Mn0.47gTlkt3x2icsDg7kO-Pzoyo9T8w_9yiz-P3JyTUj6c',
-    'Cookie': '__cf_bm=yIRdqTOiefLlxMKFrbWwenVGe64n5M2S_l_ttE86INc-1750999515-1.0.1.1-C0AhnnUQzdtp.Fm3tFHQyLlzoWRkqJ_pJidGrNq4SMkbTIeMTqEeRxYocI9zLQFn29f7M8dLR2W2C_v7w3Po8meFRNYn.eOxefA3UvIa_1Q',
   };
 
   try {
@@ -306,7 +305,6 @@ async function submitJournalEntry(userId, accessToken, questions, proxy) {
     'content-profile': 'public',
     'authorization': `Bearer ${accessToken}`,
     'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVndWZuc3BvZnhyaWRmZG93Zm92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDU2ODkzNzIsImV4cCI6MjAyMTI2NTM3Mn0.47gTlkt3x2icsDg7kO-Pzoyo9T8w_9yiz-P3JyTUj6c',
-    'Cookie': '__cf_bm=yIRdqTOiefLlxMKFrbWwenVGe64n5M2S_l_ttE86INc-1750999515-1.0.1.1-C0AhnnUQzdtp.Fm3tFHQyLlzoWRkqJ_pJidGrNq4SMkbTIeMTqEeRxYocI9zLQFn29f7M8dLR2W2C_v7w3Po8meFRNYn.eOxefA3UvIa_1Q',
   };
 
   const answers = questions.map(question => {
@@ -370,7 +368,6 @@ async function submitUserPoints(userId, accessToken, proxy) {
     'content-profile': 'public',
     'authorization': `Bearer ${accessToken}`,
     'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVndWZuc3BvZnhyaWRmZG93Zm92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDU2ODkzNzIsImV4cCI6MjAyMTI2NTM3Mn0.47gTlkt3x2icsDg7kO-Pzoyo9T8w_9yiz-P3JyTUj6c',
-    'Cookie': '__cf_bm=yIRdqTOiefLlxMKFrbWwenVGe64n5M2S_l_ttE86INc-1750999515-1.0.1.1-C0AhnnUQzdtp.Fm3tFHQyLlzoWRkqJ_pJidGrNq4SMkbTIeMTqEeRxYocI9zLQFn29f7M8dLR2W2C_v7w3Po8meFRNYn.eOxefA3UvIa_1Q',
   };
 
   const data = {
